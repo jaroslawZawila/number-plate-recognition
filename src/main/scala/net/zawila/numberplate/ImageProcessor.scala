@@ -8,9 +8,7 @@ import software.amazon.awssdk.services.rekognition.model.{DetectTextRequest, Ima
 
 import scala.collection.JavaConverters._
 
-class ImageProcessor [F[_]]  {
-
-  private val rekognito = RekognitionClient.builder().build()
+class ImageProcessor[F[_]] (rekognito: RekognitionClient = RekognitionClient.builder().build()) {
 
   def detectText(implicit F: Effect[F]): fs2.Pipe[F, S3Location, String] =
     _.flatMap( x =>

@@ -4,6 +4,7 @@ import java.util.UUID
 
 import cats.effect.Effect
 import cats.implicits._
+import net.zawila.numberplate.model.S3Location
 import org.http4s.HttpService
 import org.http4s.dsl.Http4sDsl
 import org.http4s.multipart.{Multipart, Part}

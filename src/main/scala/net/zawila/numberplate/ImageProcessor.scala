@@ -2,6 +2,7 @@ package net.zawila.numberplate
 
 import cats.effect.Effect
 import fs2.Stream
+import net.zawila.numberplate.model.S3Location
 import software.amazon.awssdk.services.rekognition.RekognitionClient
 import software.amazon.awssdk.services.rekognition.model.{DetectTextRequest, Image, S3Object}
 

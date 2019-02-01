@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream
 
 import cats.effect.Effect
 import fs2.Chunk
+import net.zawila.numberplate.model.S3Location
 import org.http4s.multipart.Part
 import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.regions.Region
@@ -16,13 +17,13 @@ class S3Uploader [F[_]] {
 
   private val s3Client: S3Client = S3Client.builder().region(Region.EU_WEST_1).build()
 
-  def uploadFileRaw(bucket: String, fileName: String)(implicit F: Effect[F]): fs2.Pipe[F, Part[F], S3Location] =
+  def uploadFileRaw(bucket: String, fileName: String)(implicit F: Effect[F]): fs2.Pipe[F, Part[F], model.S3Location] =
     _.flatMap(
       _.body.through(uploadFile(bucket, fileName)))
 
-  private def uploadFile(bucket: String, key: String)(implicit F: Effect[F]): fs2.Pipe[F, Byte, S3Location] = {
+  private def uploadFile(bucket: String, key: String)(implicit F: Effect[F]): fs2.Pipe[F, Byte, model.S3Location] = {
 
-    def c(uploadId: String): fs2.Pipe[F, List[CompletedPart], S3Location] =
+    def c(uploadId: String): fs2.Pipe[F, List[CompletedPart], model.S3Location] =
       _.flatMap(
         parts => {
           println(s"Parts: $parts")

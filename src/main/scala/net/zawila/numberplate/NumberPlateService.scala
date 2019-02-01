@@ -16,7 +16,7 @@ class NumberPlateService [F[_]: Effect] extends Http4sDsl[F]  {
 
   val service: HttpService[F] = {
     HttpService[F] {
-      case req @ POST -> Root / "ping" => {
+      case req @ POST -> Root / "picture" => {
         req.decode[Multipart[F]] { m =>
 
           val  p = fs2.Stream.emits(m.parts)
@@ -24,8 +24,8 @@ class NumberPlateService [F[_]: Effect] extends Http4sDsl[F]  {
             .covary[F]
             .through(uploadFileRaw(bucket, filename))
             .through(detectText)
-            .covary
-            .compile.foldMonoid
+            .compile
+            .foldMonoid
 
           Ok(p)
         }

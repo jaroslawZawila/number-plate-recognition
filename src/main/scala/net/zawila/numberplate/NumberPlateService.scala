@@ -4,6 +4,7 @@ import java.util.UUID
 
 import cats.effect.Effect
 import cats.implicits._
+import net.zawila.numberplate.clients.AwsS3Wrapper
 import net.zawila.numberplate.model.S3Location
 import org.http4s.HttpService
 import org.http4s.dsl.Http4sDsl
@@ -34,6 +35,6 @@ class NumberPlateService [F[_]: Effect] extends Http4sDsl[F]  {
     }
   }
 
-  private def uploadFileRaw(bucket: String, fileName: String): fs2.Pipe[F, Part[F], S3Location]= new S3Uploader[F].uploadFileRaw(bucket, fileName)
+  private def uploadFileRaw(bucket: String, fileName: String): fs2.Pipe[F, Part[F], S3Location]= new S3Uploader[F](new AwsS3Wrapper[F]).uploadFileRaw(bucket, fileName)
   private def detectText: fs2.Pipe[F, S3Location, String] = new ImageProcessor[F].detectText
 }

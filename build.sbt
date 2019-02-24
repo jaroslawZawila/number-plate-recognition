@@ -15,8 +15,12 @@ lazy val root = (project in file("."))
       "org.scalatest" %% "scalatest" % "3.0.5" % Test,
       "org.mockito" % "mockito-core" % "2.23.4" % Test,
       "ch.qos.logback"  %  "logback-classic"     % LogbackVersion,
-      "software.amazon.awssdk" % "aws-sdk-java" % "2.3.9"
+      "software.amazon.awssdk" % "aws-sdk-java" % "2.3.9",
+      "io.kamon" %% "kamon-core" % "1.1.2",
+      "io.kamon" %% "kamon-http4s" % "1.0.7",
+      "io.kamon" %% "kamon-zipkin" % "1.0.0"
     ),
+    
     addCompilerPlugin("org.spire-math" %% "kind-projector"     % "0.9.6"),
     addCompilerPlugin("com.olegpy"     %% "better-monadic-for" % "0.2.4")
   )
